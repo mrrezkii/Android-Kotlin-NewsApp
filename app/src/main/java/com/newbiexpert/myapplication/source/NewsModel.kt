@@ -1,4 +1,4 @@
-package com.newbiexpert.myapplication
+package com.newbiexpert.myapplication.source
 
 data class NewsModel(
     val status: String,
