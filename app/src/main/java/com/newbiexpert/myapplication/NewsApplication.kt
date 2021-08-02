@@ -3,6 +3,7 @@ package com.newbiexpert.myapplication
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.newbiexpert.myapplication.source.network.networkModule
+import com.newbiexpert.myapplication.source.news.repositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -19,7 +20,8 @@ class NewsApplication : Application() {
             androidLogger()
             androidContext(this@NewsApplication)
             modules(
-                networkModule
+                networkModule,
+                repositoryModule
             )
         }
     }
