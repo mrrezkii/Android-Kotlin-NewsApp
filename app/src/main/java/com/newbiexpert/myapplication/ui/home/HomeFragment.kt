@@ -7,11 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.newbiexpert.myapplication.databinding.CustomToolbarBinding
 import com.newbiexpert.myapplication.databinding.FragmentHomeBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.dsl.module
+
+val homeModule = module {
+    factory { HomeFragment() }
+}
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var bindingToolbar: CustomToolbarBinding
+    private val viewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +31,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindingToolbar.textTitle.text = "Berita"
+        bindingToolbar.textTitle.text = viewModel.title
     }
 
 }
