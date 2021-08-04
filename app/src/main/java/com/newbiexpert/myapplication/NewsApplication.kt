@@ -4,9 +4,11 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.newbiexpert.myapplication.source.network.networkModule
 import com.newbiexpert.myapplication.source.news.repositoryModule
+import com.newbiexpert.myapplication.ui.home.homeViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 import timber.log.Timber
 
 class NewsApplication : Application() {
@@ -17,11 +19,12 @@ class NewsApplication : Application() {
         Timber.d("Run base application")
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         startKoin {
-            androidLogger()
+            androidLogger(Level.NONE)
             androidContext(this@NewsApplication)
             modules(
                 networkModule,
-                repositoryModule
+                repositoryModule,
+                homeViewModel
             )
         }
     }
