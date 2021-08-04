@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1953125" />
-        <entry key="app/src/main/res/layout/adapter_category.xml" value="0.1953125" />
+        <entry key="app/src/main/res/layout/adapter_category.xml" value="0.5" />
         <entry key="app/src/main/res/layout/adapter_headline.xml" value="0.1953125" />
         <entry key="app/src/main/res/layout/adapter_news.xml" value="0.1953125" />
         <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.1953125" />
