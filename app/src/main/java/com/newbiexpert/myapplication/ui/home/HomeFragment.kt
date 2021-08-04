@@ -9,6 +9,7 @@ import com.newbiexpert.myapplication.databinding.CustomToolbarBinding
 import com.newbiexpert.myapplication.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.dsl.module
+import timber.log.Timber
 
 val homeModule = module {
     factory { HomeFragment() }
@@ -32,6 +33,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindingToolbar.textTitle.text = viewModel.title
+        Timber.e(viewModel.categories.toString())
     }
 
 }
