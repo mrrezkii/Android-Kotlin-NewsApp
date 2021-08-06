@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.newbiexpert.myapplication.databinding.CustomToolbarBinding
 import com.newbiexpert.myapplication.databinding.FragmentHomeBinding
 import com.newbiexpert.myapplication.source.news.CategoryModel
@@ -36,12 +38,26 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bindingToolbar.textTitle.text = viewModel.title
         binding.listCategory.adapter = categoryAdapter
+
+        viewModel.category.observe(viewLifecycleOwner, Observer {
+            Timber.e(it)
+        })
+
+        viewModel.news.observe(viewLifecycleOwner, Observer {
+            Timber.e(it.articles.toString())
+        })
+
+        viewModel.message.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private val categoryAdapter by lazy {
         CategoryAdapter(viewModel.categories, object : CategoryAdapter.OnAdapterListener {
             override fun onClick(category: CategoryModel) {
-                Timber.e(category.id)
+                viewModel.category.postValue(category.id)
             }
 
         })
