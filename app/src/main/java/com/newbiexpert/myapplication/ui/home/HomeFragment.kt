@@ -1,5 +1,6 @@
 package com.newbiexpert.myapplication.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.newbiexpert.myapplication.databinding.CustomToolbarBinding
 import com.newbiexpert.myapplication.databinding.FragmentHomeBinding
 import com.newbiexpert.myapplication.source.news.ArticleModel
 import com.newbiexpert.myapplication.source.news.CategoryModel
+import com.newbiexpert.myapplication.ui.detail.DetailActivity
 import com.newbiexpert.myapplication.ui.news.CategoryAdapter
 import com.newbiexpert.myapplication.ui.news.NewsAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -65,10 +67,12 @@ class HomeFragment : Fragment() {
 
     private val newsAdapter by lazy {
         NewsAdapter(arrayListOf(), object : NewsAdapter.OnAdapterListener {
-            override fun onClick(category: ArticleModel) {
-
+            override fun onClick(article: ArticleModel) {
+                startActivity(
+                    Intent(requireActivity(), DetailActivity::class.java)
+                        .putExtra("intent_detail", article)
+                )
             }
-
         })
     }
 
