@@ -38,12 +38,17 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         bindingToolbar.title = viewModel.title
+
         binding.listCategory.adapter = categoryAdapter
         binding.listNews.adapter = newsAdapter
 
         viewModel.category.observe(viewLifecycleOwner, Observer {
             Timber.e(it)
+            viewModel.fetch()
         })
 
         viewModel.news.observe(viewLifecycleOwner, Observer {

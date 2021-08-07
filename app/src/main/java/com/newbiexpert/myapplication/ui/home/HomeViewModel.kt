@@ -20,23 +20,25 @@ class HomeViewModel(
     val title = "Berita"
     val category by lazy { MutableLiveData<String>() }
     val message by lazy { MutableLiveData<String>() }
+    val loading by lazy { MutableLiveData<Boolean>() }
     val news by lazy { MutableLiveData<NewsModel>() }
 
     init {
         category.value = ""
         message.value = null
-        fetch()
     }
 
     fun fetch() {
+        loading.value = true
         try {
             viewModelScope.launch {
                 val response = repository.fetch(
-                    "",
+                    category.value!!,
                     "",
                     1
                 )
                 news.value = response
+                loading.value = false
             }
         } catch (e: Exception) {
             message.value = "Terjadi kesalahan"
