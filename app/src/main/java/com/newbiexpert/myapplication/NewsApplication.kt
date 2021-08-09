@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.newbiexpert.myapplication.source.network.networkModule
 import com.newbiexpert.myapplication.source.news.repositoryModule
+import com.newbiexpert.myapplication.source.persistence.databaseModule
 import com.newbiexpert.myapplication.ui.bookmark.bookmarkModule
 import com.newbiexpert.myapplication.ui.bookmark.bookmarkViewModel
 import com.newbiexpert.myapplication.ui.home.homeModule
@@ -30,7 +31,8 @@ class NewsApplication : Application() {
                 homeViewModel,
                 homeModule,
                 bookmarkViewModel,
-                bookmarkModule
+                bookmarkModule,
+                databaseModule
             )
         }
     }
