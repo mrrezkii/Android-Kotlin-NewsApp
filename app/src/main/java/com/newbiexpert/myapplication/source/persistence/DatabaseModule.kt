@@ -17,6 +17,7 @@ fun provideDatabase(application: Application): DatabaseClient {
         DatabaseClient::class.java,
         "news.db"
     ).fallbackToDestructiveMigration()
+        .allowMainThreadQueries()
         .build()
 }
 
