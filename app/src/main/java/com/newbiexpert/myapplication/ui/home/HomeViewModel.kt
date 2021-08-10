@@ -28,13 +28,15 @@ class HomeViewModel(
         message.value = null
     }
 
+    var query = ""
+
     fun fetch() {
         loading.value = true
         try {
             viewModelScope.launch {
                 val response = repository.fetch(
                     category.value!!,
-                    "",
+                    query,
                     1
                 )
                 news.value = response

@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.newbiexpert.myapplication.R
 import com.newbiexpert.myapplication.databinding.CustomToolbarBinding
 import com.newbiexpert.myapplication.databinding.FragmentHomeBinding
 import com.newbiexpert.myapplication.source.news.ArticleModel
@@ -44,13 +46,28 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         bindingToolbar.title = viewModel.title
+        bindingToolbar.container.inflateMenu(R.menu.menu_search)
+        val menu = binding.toolbar.container.menu
+        val search = menu.findItem(R.id.action_search)
+        val searchView = search.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                firstLoad()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let { viewModel.query = it }
+                return true
+            }
+
+        })
 
         binding.listCategory.adapter = categoryAdapter
         binding.listNews.adapter = newsAdapter
 
         viewModel.category.observe(viewLifecycleOwner, Observer {
-            Timber.e(it)
-            viewModel.fetch()
+            firstLoad()
         })
 
         viewModel.news.observe(viewLifecycleOwner, Observer {
@@ -63,6 +80,11 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun firstLoad() {
+        binding.scroll.scrollTo(0, 0)
+        viewModel.fetch()
     }
 
     private val newsAdapter by lazy {
