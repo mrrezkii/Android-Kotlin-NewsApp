@@ -44,6 +44,7 @@ class BookmarkFragment : Fragment() {
 
         binding.listBookmark.adapter = newsAdapter
         viewModel.articles.observe(viewLifecycleOwner, Observer {
+            newsAdapter.clear()
             newsAdapter.add(it)
         })
     }

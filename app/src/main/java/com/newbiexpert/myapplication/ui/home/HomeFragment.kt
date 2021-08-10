@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.newbiexpert.myapplication.R
@@ -72,6 +73,7 @@ class HomeFragment : Fragment() {
 
         viewModel.news.observe(viewLifecycleOwner, Observer {
             Timber.e(it.articles.toString())
+            if (viewModel.page == 1) newsAdapter.clear()
             newsAdapter.add(it.articles)
         })
 
@@ -80,10 +82,18 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         })
+
+        binding.scroll.setOnScrollChangeListener { v: NestedScrollView, _, scrollY, _, _ ->
+            if (scrollY == v.getChildAt(0)!!.measuredHeight - v.measuredHeight) {
+                if (viewModel.page <= viewModel.total && viewModel.loadMore.value == false) viewModel.fetch()
+            }
+        }
     }
 
     private fun firstLoad() {
         binding.scroll.scrollTo(0, 0)
+        viewModel.page = 1
+        viewModel.total = 1
         viewModel.fetch()
     }
 
