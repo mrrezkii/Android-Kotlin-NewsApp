@@ -1,10 +1,13 @@
 package com.newbiexpert.myapplication.ui.detail
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.newbiexpert.myapplication.R
 import com.newbiexpert.myapplication.databinding.ActivityDetailBinding
 import com.newbiexpert.myapplication.databinding.CustomToolbarBinding
 import com.newbiexpert.myapplication.source.news.ArticleModel
@@ -45,5 +48,16 @@ class DetailActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_boomark, menu)
+        val menuBookmark = menu!!.findItem(R.id.action_bookmark)
+        menuBookmark.setOnMenuItemClickListener {
+            Toast.makeText(applicationContext, "add bookmark", Toast.LENGTH_SHORT).show()
+            menuBookmark.setIcon(R.drawable.ic_check)
+            true
+        }
+        return super.onCreateOptionsMenu(menu)
     }
 }
